@@ -1,9 +1,21 @@
-import type { NextPage } from 'next'
+import type { NextPage,GetStaticProps  } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import axios from "axios";
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await axios.get('http://test-alb-958812795.ap-northeast-1.elb.amazonaws.com/detail/40196')
+  const cardData = await res.data
+  console.log(cardData );
+  return { props: { cardData  } }
+}
+
+// innterファース作る
+
+// ここで方を当てる
+// cardData:katamei
+const Home: NextPage = ({  }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +28,9 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Nextfafasf.js!</a>
         </h1>
+        <div>
+          {/* {cardData.card_data} */}
+        </div>
 
         <p className={styles.description}>
           Get started by editing{' '}
